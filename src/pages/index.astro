@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getMapImage } from "../util/maps";
 import { getAgentImage } from "../util/agents";
 
@@ -24,10 +25,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                         <div class="flex justify-center space-x-4">
                             {
                                 ["Ascent", "Bind", "Split"].map((map) => (
-                                    <img
+                                    <Image
                                         src={getMapImage(map)}
                                         alt={map}
                                         class="w-24 h-24 rounded-full shadow-md object-cover border-white"
+                                        height={96}
+                                        width={96}
                                     />
                                 ))
                             }
@@ -48,10 +51,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                         <div class="flex justify-center space-x-4">
                             {
                                 ["Jett", "Sova", "Reyna"].map((agent) => (
-                                    <img
+                                    <Image
                                         src={getAgentImage(agent)}
                                         alt={agent}
                                         class="w-24 h-24 rounded-full shadow-md bg-slate-100 border-white"
+                                        height={96}
+                                        width={96}
                                     />
                                 ))
                             }
