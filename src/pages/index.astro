@@ -1,16 +1,67 @@
 ---
+import { getMapImage } from "../util/maps";
+import { getAgentImage } from "../util/agents";
 
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Valorant Lineups</title>
-	</head>
-	<body>
-		<h1>Valorant Lineups</h1>
-	</body>
-</html>
+<BaseLayout title="Valorant Setups">
+    <main class="p-4 md:p-8 bg-gray-100 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <p class="text-lg mt-4 mb-8 text-gray-800 text-center">
+                A collection of setups for maps in Valorant. All in one
+                convenient place.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <a
+                    class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-105"
+                    href="/maps"
+                >
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                            Search by Maps
+                        </h2>
+                        <div class="flex justify-center space-x-4">
+                            {
+                                ["Ascent", "Bind", "Split"].map((map) => (
+                                    <img
+                                        src={getMapImage(map)}
+                                        alt={map}
+                                        class="w-24 h-24 rounded-full shadow-md object-cover border-white"
+                                    />
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        Explore setups by selecting a map.
+                    </p>
+                </a>
+                <a
+                    class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-105"
+                    href="/agents"
+                >
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                            Search by Agents
+                        </h2>
+                        <div class="flex justify-center space-x-4">
+                            {
+                                ["Jett", "Sova", "Reyna"].map((agent) => (
+                                    <img
+                                        src={getAgentImage(agent)}
+                                        alt={agent}
+                                        class="w-24 h-24 rounded-full shadow-md bg-slate-100 border-white"
+                                    />
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        Explore setups by selecting an agent.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </main>
+</BaseLayout>

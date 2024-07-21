@@ -1,0 +1,40 @@
+---
+import { mapMap, getMapImage } from "../../util/maps";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const maps = Object.keys(mapMap).map(
+    (key) => `${key[0]!.toUpperCase()}${key.slice(1)}`,
+);
+---
+
+<BaseLayout title="Valorant Setups">
+    <main class="p-4 md:p-8 bg-gray-100 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+            >
+                {
+                    maps.map((map) => (
+                        <a
+                            href={`/maps/${map.toLowerCase()}`}
+                            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                            aria-label={`View setups for ${map}`}
+                        >
+                            <div class="relative">
+                                <img
+                                    src={getMapImage(map)}
+                                    alt={map}
+                                    class="w-full h-48 object-cover rounded-lg"
+                                />
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">
+                                    <h2 class="text-xl font-bold text-white">
+                                        {map}
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+</BaseLayout>

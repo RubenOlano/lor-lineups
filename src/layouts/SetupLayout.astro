@@ -1,0 +1,66 @@
+---
+import { type CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+type Props = CollectionEntry<"setup">["data"];
+
+const { agent, map, site, isAttacking, isUlt, video, images, title } =
+    Astro.props as Props;
+---
+
+<BaseLayout title={`${agent} Setup on ${map} - ${site} Site`}>
+    <main class="p-4 md:p-8 bg-gray-100 min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-10">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-extrabold text-gray-900 mb-4">
+                    {title}
+                </h1>
+                <p class="text-2xl text-gray-700">
+                    {isAttacking ? "Attacking" : "Defending"} - {
+                        isUlt ? "Ultimate" : "Regular"
+                    } Setup
+                </p>
+            </div>
+            <div class="mb-8">
+                <h2
+                    class="text-3xl font-semibold mb-4 text-gray-900 text-center"
+                >
+                    Video Guide
+                </h2>
+                <div
+                    class="relative"
+                    style="padding-bottom: 56.25%; height: 0;"
+                >
+                    <iframe
+                        class="absolute top-0 left-0 w-full h-full rounded-lg"
+                        src={video}
+                        allowfullscreen
+                        title={`Video guide for ${agent} on ${map} site ${site}`}
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+
+        <slot />
+
+        {
+            images.length > 0 && (
+                <div class="bg-white p-8 rounded-lg shadow-lg mb-10">
+                    <h2 class="text-3xl font-semibold mb-6 text-gray-900 text-center">
+                        Image References
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {images.map((image, index) => (
+                            <div class="overflow-hidden rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105">
+                                <img
+                                    src={image}
+                                    alt={`Reference image ${index + 1} for ${agent} on ${map} site ${site}`}
+                                    class="w-full h-auto"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )
+        }
+    </main>
+</BaseLayout>

@@ -1,0 +1,30 @@
+---
+import { agentMap, getAgentImage } from "../../util/agents";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const agents = Object.keys(agentMap).map(
+    (key) => `${key[0]!.toUpperCase()}${key.slice(1)}`,
+);
+---
+
+<BaseLayout title="Valorant Setups">
+    <main class="p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            {
+                agents.map((agent) => (
+                    <a
+                        href={`/agents/${agent.toLowerCase()}`}
+                        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                        aria-label={`View setups for ${agent}`}
+                    >
+                        <img
+                            src={getAgentImage(agent)}
+                            alt={agent}
+                            class="w-full h-48 object-cover rounded-lg"
+                        />
+                        <h2 class="text-xl font-bold text-gray-900">{agent}</h2>
+                    </a>
+                ))
+            }
+        </div>
+    </main>
+</BaseLayout>
