@@ -9,12 +9,14 @@ const { agent, map, site, isAttacking, isUlt, video, images, title } =
 
 <BaseLayout title={`${agent} Setup on ${map} - ${site} Site`}>
     <main class="p-4 md:p-8 bg-gray-100">
-        <div class="bg-white p-8 rounded-lg shadow-lg mb-10">
+        <div class="p-8 mb-10">
             <div class="text-center mb-8">
-                <h1 class="text-5xl font-extrabold text-gray-900 mb-4">
+                <h1
+                    class="text-xl md:text-5xl font-extrabold text-gray-900 mb-4"
+                >
                     {title}
                 </h1>
-                <p class="text-2xl text-gray-700">
+                <p class="md:text-2xl text-gray-700">
                     {isAttacking ? "Attacking" : "Defending"} - {
                         isUlt ? "Ultimate" : "Regular"
                     } Setup
@@ -22,7 +24,7 @@ const { agent, map, site, isAttacking, isUlt, video, images, title } =
             </div>
             <div class="mb-8">
                 <h2
-                    class="text-3xl font-semibold mb-4 text-gray-900 text-center"
+                    class="text-lg md:text-3xl font-semibold mb-4 text-gray-900 text-center"
                 >
                     Video Guide
                 </h2>
