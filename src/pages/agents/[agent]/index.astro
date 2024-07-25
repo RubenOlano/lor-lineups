@@ -41,8 +41,7 @@ const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)}`;
                     setups.length === 0 && (
                         <p class="text-center text-gray-600">
                             No setups found for
-                            {agent[0]!.toUpperCase()}
-                            {agent.slice(1)}.
+                            {agent[0]!.toUpperCase() + agent.slice(1)}.
                         </p>
                     )
                 }

@@ -56,11 +56,9 @@ const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)} on ${map[0
                     setups.length === 0 && (
                         <div class="text-center text-gray-600">
                             No setups found for
-                            {agent[0]!.toUpperCase()}
-                            {agent.slice(1)}
+                            {agent[0]!.toUpperCase() + agent.slice(1)}
                             on
-                            {map[0]!.toUpperCase()}
-                            {map.slice(1)}
+                            {map[0]!.toUpperCase() + map.slice(1)}
                         </div>
                     )
                 }
