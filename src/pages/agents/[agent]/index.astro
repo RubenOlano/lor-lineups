@@ -27,7 +27,7 @@ const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)}`;
 ---
 
 <BaseLayout {title}>
-    <main class="p-4 md:p-8 bg-gray-100 min-h-screen">
+    <main class="p-4 md:p-8 bg-gray-100">
         <div class="max-w-7xl mx-auto">
             <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">
                 {title}
@@ -40,8 +40,9 @@ const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)}`;
                 {
                     setups.length === 0 && (
                         <p class="text-center text-gray-600">
-                            No setups found for 
-                            {agent[0]!.toUpperCase()}{agent.slice(1)}.
+                            No setups found for
+                            {agent[0]!.toUpperCase()}
+                            {agent.slice(1)}.
                         </p>
                     )
                 }
