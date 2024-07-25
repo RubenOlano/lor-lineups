@@ -1,5 +1,6 @@
 ---
 import HeaderNav from "../components/HeaderNav.astro";
+import Footer from "../components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
 type Props = {
     title: string;
@@ -21,10 +22,13 @@ const props = Astro.props;
         <title>{props.title}</title>
         <ViewTransitions />
     </head>
-    <body class="bg-gray-100 text-gray-900">
+    <body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
         <header>
             <HeaderNav />
         </header>
-        <slot />
+        <main class="flex-grow">
+            <slot />
+        </main>
+        <Footer />
     </body>
 </html>
