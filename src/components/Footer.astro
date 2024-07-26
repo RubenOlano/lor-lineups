@@ -1,5 +1,5 @@
 ---
-
+import Logo from "../../public/favicon.svg";
 ---
 
 <footer class="bg-gray-900 text-gray-100 py-8">
@@ -7,23 +7,30 @@
         <div
             class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
         >
-            <div class="text-center md:text-left">
-                <h2 class="text-2xl font-bold">Valorant Setups</h2>
-                <p class="mt-2 text-gray-400">
-                    Quick and easy setups for your favorite agents.
-                </p>
+            <div class="flex items-center space-x-4 text-center md:text-left">
+                <img
+                    src={Logo.src}
+                    alt="Valorant Setups Logo"
+                    class="w-20 h-20"
+                />
+                <div>
+                    <h2 class="text-2xl font-bold">Valorant Setups</h2>
+                    <p class="mt-2 text-gray-400">
+                        Quick and easy setups for your favorite agents.
+                    </p>
+                </div>
             </div>
             <div class="flex space-x-4">
                 <a href="/" class="text-gray-400 hover:text-gray-100">Home</a>
-                <a href="/about" class="text-gray-400 hover:text-gray-100">
-                    About
-                </a>
-                <a href="/maps" class="text-gray-400 hover:text-gray-100">
-                    Maps
-                </a>
-                <a href="/agents" class="text-gray-400 hover:text-gray-100">
-                    Agents
-                </a>
+                <a href="/about" class="text-gray-400 hover:text-gray-100"
+                    >About</a
+                >
+                <a href="/maps" class="text-gray-400 hover:text-gray-100"
+                    >Maps</a
+                >
+                <a href="/agents" class="text-gray-400 hover:text-gray-100"
+                    >Agents</a
+                >
             </div>
         </div>
         <div class="mt-8 text-center text-gray-500 text-sm">

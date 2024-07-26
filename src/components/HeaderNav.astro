@@ -1,15 +1,24 @@
 ---
-
+import Logo from "../../public/favicon.svg";
 ---
 
 <header class="bg-gray-800 text-white py-4 px-4 md:px-2">
     <nav class="container mx-auto flex justify-between items-center">
-        <a
-            href="/"
-            class="text-2xl font-bold hover:text-gray-300 transition-colors duration-300"
-        >
-            Valorant Setups
-        </a>
+        <div class="flex items-center space-x-4">
+            <a href="/">
+                <img
+                    src={Logo.src}
+                    alt="Valorant Setups Logo"
+                    class="w-10 h-10"
+                />
+            </a>
+            <a
+                href="/"
+                class="text-2xl font-bold hover:text-gray-300 transition-colors duration-300"
+            >
+                Valorant Setups
+            </a>
+        </div>
         <ul class="flex space-x-4">
             <li>
                 <a
