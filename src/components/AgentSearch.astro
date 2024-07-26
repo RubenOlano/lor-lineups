@@ -33,37 +33,28 @@ const { currentAgent } = Astro.props as Props;
                 ))
             }
         </select>
-        <div
-            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
-        >
-            <svg
-                class="w-5 h-5 text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707A1 1 0 114.293 8.293l5-5A1 1 0 0110 3z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </div>
     </div>
 </div>
 
 <script>
-    document.getElementById("agent")!.addEventListener("change", (event) => {
-        const agent = (event.target as HTMLSelectElement).value;
-        const url = new URL(window.location.href);
-        const path = url.pathname.split("/");
-        const currentMap = path[2];
+    import { navigate } from "astro:transitions/client";
+    document.addEventListener("astro:page-load", () =>
+        document
+            .querySelector("select")!
+            .addEventListener("change", async (event) => {
+                const agent = (event.target as HTMLSelectElement).value;
+                const url = new URL(window.location.href);
+                const path = url.pathname.split("/");
+                const currentMap = path[2];
 
-        console.log({ agent, currentMap });
+                console.log(agent);
 
-        if (agent === "") {
-            window.location.href = `/maps/${currentMap}`;
-        } else {
-            window.location.href = `/maps/${currentMap}/${agent}`;
-        }
-    });
+                if (agent === "") {
+                    await navigate(`/maps/${currentMap}`);
+                } else {
+                    await navigate(`/maps/${currentMap}/${agent}`);
+                }
+                console.log("navigating");
+            }),
+    );
 </script>

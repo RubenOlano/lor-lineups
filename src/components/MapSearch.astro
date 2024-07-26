@@ -51,16 +51,21 @@ const { currentMap } = Astro.props;
 </div>
 
 <script>
-    document.getElementById("agent")!.addEventListener("change", (event) => {
-        const map = (event.target as HTMLSelectElement).value;
-        const url = new URL(window.location.href);
-        const path = url.pathname.split("/");
-        const currentAgent = path[2];
+    import { navigate } from "astro:transitions/client";
+    document.addEventListener("astro:page-load", () =>
+        document
+            .getElementById("agent")!
+            .addEventListener("change", (event) => {
+                const map = (event.target as HTMLSelectElement).value;
+                const url = new URL(window.location.href);
+                const path = url.pathname.split("/");
+                const currentAgent = path[2];
 
-        if (map === "") {
-            window.location.href = `/agents/${currentAgent}`;
-        } else {
-            window.location.href = `/agents/${currentAgent}/${map}`;
-        }
-    });
+                if (map === "") {
+                    navigate(`/agents/${currentAgent}`);
+                } else {
+                    navigate(`/agents/${currentAgent}/${map}`);
+                }
+            }),
+    );
 </script>
