@@ -40,21 +40,18 @@ const { currentAgent } = Astro.props as Props;
     import { navigate } from "astro:transitions/client";
     document.addEventListener("astro:page-load", () =>
         document
-            .querySelector("select")!
-            .addEventListener("change", async (event) => {
+            .querySelector("select")
+            ?.addEventListener("change", (event) => {
                 const agent = (event.target as HTMLSelectElement).value;
                 const url = new URL(window.location.href);
                 const path = url.pathname.split("/");
                 const currentMap = path[2];
 
-                console.log(agent);
-
                 if (agent === "") {
-                    await navigate(`/maps/${currentMap}`);
+                    navigate(`/maps/${currentMap}`);
                 } else {
-                    await navigate(`/maps/${currentMap}/${agent}`);
+                    navigate(`/maps/${currentMap}/${agent}`);
                 }
-                console.log("navigating");
             }),
     );
 </script>
