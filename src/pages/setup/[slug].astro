@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import SetupLayout from "../../layouts/SetupLayout.astro";
+import SetupLayout from "@/layouts/SetupLayout.astro";
 
 export async function getStaticPaths() {
     const entries = await getCollection("setup");

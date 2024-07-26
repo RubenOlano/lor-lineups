@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import SetupGridItem from "../../../components/SetupGridItem.astro";
-import MapSearch from "../../../components/MapSearch.astro";
-import { agentMap } from "../../../util/agents";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SetupGridItem from "@/components/SetupGridItem.astro";
+import MapSearch from "@/components/MapSearch.astro";
+import { agentMap } from "@/util/agents";
 
 export async function getStaticPaths() {
     const entries = await getCollection("setup");

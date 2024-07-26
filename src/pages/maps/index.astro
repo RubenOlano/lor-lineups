@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import { mapMap, getMapImage } from "../../util/maps";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import { mapMap, getMapImage } from "@/util/maps";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 const maps = Object.keys(mapMap).map(
     (key) => `${key[0]!.toUpperCase()}${key.slice(1)}`,
 );

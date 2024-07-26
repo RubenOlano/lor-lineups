@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-const entries = await getCollection("setup");
-const uniqueAgents = [
-    ...new Set(entries.map((entry) => entry.data.agent).flat()),
-];
+import { agentMap } from "@/util/agents";
+
+const uniqueAgents = Object.keys(agentMap).map(
+    (agent) => agent[0]!.toUpperCase() + agent.slice(1),
+);
 
 type Props = {
     currentAgent?: string;
@@ -20,7 +20,7 @@ const { currentAgent } = Astro.props as Props;
             name="agent"
             class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
         >
-            <option value="" disabled>Select an agent</option>
+            <option value="" disabled>Select an Agent</option>
             <option value=""> All agents </option>
             {
                 uniqueAgents.map((agent) => (

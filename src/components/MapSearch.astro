@@ -1,7 +1,8 @@
 ---
-import { getCollection } from "astro:content";
-const entries = await getCollection("setup");
-const uniqueMaps = [...new Set(entries.map((entry) => entry.data.map).flat())];
+import { mapMap } from "@/util/maps";
+const uniqueMaps = Object.keys(mapMap).map(
+    (map) => map[0]!.toUpperCase() + map.slice(1),
+);
 
 type Props = {
     currentMap?: string;
