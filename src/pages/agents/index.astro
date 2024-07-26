@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { agentMap, getAgentImage } from "@/util/agents";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
 const agents = Object.keys(agentMap).map(
     (key) => `${key[0]!.toUpperCase()}${key.slice(1)}`,
 );

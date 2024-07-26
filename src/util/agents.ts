@@ -1,31 +1,57 @@
-export const agentMap: Record<string, string> = {
-  astra: "/agents/Astra icon.webp",
-  breach: "/agents/Breach icon.webp",
-  brimstone: "/agents/Brimstone icon.webp",
-  chamber: "/agents/Chamber icon.webp",
-  clove: "/agents/Clove icon.webp",
-  cypher: "/agents/Cypher icon.webp",
-  deadlock: "/agents/Deadlock icon.webp",
-  fade: "/agents/Fade icon.webp",
-  gekko: "/agents/Gekko icon.webp",
-  harbor: "/agents/Harbor icon.webp",
-  iso: "/agents/Iso icon.webp",
-  jett: "/agents/Jett icon.webp",
-  kayo: "/agents/Kayo icon.webp",
-  killjoy: "/agents/Killjoy icon.webp",
-  neon: "/agents/Neon icon.webp",
-  omen: "/agents/Omen icon.webp",
-  phoenix: "/agents/Phoenix icon.webp",
-  raze: "/agents/Raze icon.webp",
-  reyna: "/agents/Reyna icon.webp",
-  sage: "/agents/Sage icon.webp",
-  skye: "/agents/Skye icon.webp",
-  sova: "/agents/Sova icon.webp",
-  viper: "/agents/Viper icon.webp",
-  yoru: "/agents/Yoru icon.webp",
+import AstraIcon from "@/images/agents/Astra icon.webp";
+import BreachIcon from "@/images/agents/Breach icon.webp";
+import BrimstoneIcon from "@/images/agents/Brimstone icon.webp";
+import ChamberIcon from "@/images/agents/Chamber icon.webp";
+import CloveIcon from "@/images/agents/Clove icon.webp";
+import CypherIcon from "@/images/agents/Cypher icon.webp";
+import DeadlockIcon from "@/images/agents/Deadlock icon.webp";
+import FadeIcon from "@/images/agents/Fade icon.webp";
+import GekkoIcon from "@/images/agents/Gekko icon.webp";
+import HarborIcon from "@/images/agents/Harbor icon.webp";
+import IsoIcon from "@/images/agents/Iso icon.webp";
+import JettIcon from "@/images/agents/Jett icon.webp";
+import KayoIcon from "@/images/agents/Kayo icon.webp";
+import KilljoyIcon from "@/images/agents/Killjoy icon.webp";
+import NeonIcon from "@/images/agents/Neon icon.webp";
+import OmenIcon from "@/images/agents/Omen icon.webp";
+import PhoenixIcon from "@/images/agents/Phoenix icon.webp";
+import RazeIcon from "@/images/agents/Raze icon.webp";
+import ReynaIcon from "@/images/agents/Reyna icon.webp";
+import SageIcon from "@/images/agents/Sage icon.webp";
+import SkyeIcon from "@/images/agents/Skye icon.webp";
+import SovaIcon from "@/images/agents/Sova icon.webp";
+import ViperIcon from "@/images/agents/Viper icon.webp";
+import YoruIcon from "@/images/agents/Yoru icon.webp";
+import DefaultIcon from "@/images/Default Icon.webp";
+
+export const agentMap: Record<string, ImageMetadata> = {
+  astra: AstraIcon,
+  breach: BreachIcon,
+  brimstone: BrimstoneIcon,
+  chamber: ChamberIcon,
+  clove: CloveIcon,
+  cypher: CypherIcon,
+  deadlock: DeadlockIcon,
+  fade: FadeIcon,
+  gekko: GekkoIcon,
+  harbor: HarborIcon,
+  iso: IsoIcon,
+  jett: JettIcon,
+  kayo: KayoIcon,
+  killjoy: KilljoyIcon,
+  neon: NeonIcon,
+  omen: OmenIcon,
+  phoenix: PhoenixIcon,
+  raze: RazeIcon,
+  reyna: ReynaIcon,
+  sage: SageIcon,
+  skye: SkyeIcon,
+  sova: SovaIcon,
+  viper: ViperIcon,
+  yoru: YoruIcon,
 };
 
-export function getAgentImage(agent: string): string {
+export function getAgentImage(agent: string): ImageMetadata {
   agent = agent.toLowerCase();
-  return agentMap[agent] ?? "/Default icon.webp";
+  return agentMap[agent] ?? DefaultIcon;
 }
