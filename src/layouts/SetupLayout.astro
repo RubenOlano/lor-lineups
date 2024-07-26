@@ -8,45 +8,36 @@ const { agent, map, site, isAttacking, isUlt, video, images, title } =
 ---
 
 <BaseLayout title={`${agent} Setup on ${map} - ${site} Site`}>
-    <main class="p-4 md:p-8 bg-gray-100">
-        <div class="p-8 mb-10">
-            <div class="text-center mb-8">
-                <h1
-                    class="text-xl md:text-5xl font-extrabold text-gray-900 mb-4"
-                >
-                    {title}
-                </h1>
-                <p class="md:text-2xl text-gray-700">
-                    {isAttacking ? "Attacking" : "Defending"} - {
-                        isUlt ? "Ultimate" : "Regular"
-                    } Setup
-                </p>
+    <div class="max-w-5xl mx-auto py-5 px-5 md:px-0">
+        <header class="text-center mb-8">
+            <h1 class="text-xl md:text-3xl font-extrabold text-gray-800 mb-4">
+                {title}
+            </h1>
+            <p class="text-lg md:text-xl text-gray-700 font-light">
+                {isAttacking ? "Attacking" : "Defending"} - {
+                    isUlt ? "Ultimate" : "Regular"
+                } Setup
+            </p>
+        </header>
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-900 text-center">
+                Video Guide
+            </h2>
+            <div class="relative pb-[56.25%] h-0 overflow-hidden">
+                <iframe
+                    class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md"
+                    src={video}
+                    allowfullscreen
+                    title={`Video guide for ${agent} on ${map} site ${site}`}
+                ></iframe>
             </div>
-            <div class="mb-8">
-                <h2
-                    class="text-lg md:text-3xl font-semibold mb-4 text-gray-900 text-center"
-                >
-                    Video Guide
-                </h2>
-                <div
-                    class="relative"
-                    style="padding-bottom: 56.25%; height: 0;"
-                >
-                    <iframe
-                        class="absolute top-0 left-0 w-full h-full rounded-lg"
-                        src={video}
-                        allowfullscreen
-                        title={`Video guide for ${agent} on ${map} site ${site}`}
-                    ></iframe>
-                </div>
-            </div>
-        </div>
+        </section>
 
         <slot />
 
         {
             images.length > 0 && (
-                <div class="bg-white p-8 rounded-lg shadow-lg mb-10">
+                <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
                     <h2 class="text-3xl font-semibold mb-6 text-gray-900 text-center">
                         Image References
                     </h2>
@@ -61,8 +52,8 @@ const { agent, map, site, isAttacking, isUlt, video, images, title } =
                             </div>
                         ))}
                     </div>
-                </div>
+                </section>
             )
         }
-    </main>
+    </div>
 </BaseLayout>
