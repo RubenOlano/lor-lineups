@@ -15,43 +15,52 @@ const { currentAgent } = Astro.props as Props;
 <div class="flex flex-col space-y-4">
     <label for="agent" class="text-lg font-semibold text-gray-800">Agent</label>
     <div class="relative">
-        <select
-            id="agent"
-            name="agent"
+        <input
+            type="text"
+            list="agents"
+            value={currentAgent
+                ? `${currentAgent[0]!.toUpperCase()}${currentAgent.slice(1)}`
+                : ""}
             class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
-        >
+            placeholder="Select an Agent"
+            autofocus
+            autocomplete="agents"
+            tabindex="0"
+        />
+        <datalist id="agents">
             <option value="" disabled>Select an Agent</option>
-            <option value=""> All Agents </option>
+            <option value="">All Agents</option>
             {
                 uniqueAgents.map((agent) => (
                     <option
-                        value={agent.toLowerCase()}
+                        value={agent}
                         selected={agent.toLowerCase() === currentAgent}
                     >
                         {agent}
                     </option>
                 ))
             }
-        </select>
+        </datalist>
     </div>
 </div>
 
 <script>
     import { navigate } from "astro:transitions/client";
-    document.addEventListener("astro:page-load", () =>
-        document
-            .querySelector("select")
-            ?.addEventListener("change", (event) => {
-                const agent = (event.target as HTMLSelectElement).value;
-                const url = new URL(window.location.href);
-                const path = url.pathname.split("/");
-                const currentMap = path[2];
+    document.addEventListener("astro:page-load", () => {
+        const input = document.querySelector("input[list='agents']");
+        input?.addEventListener("change", (event) => {
+            const agent = (
+                event.target as HTMLInputElement
+            ).value.toLowerCase();
+            const url = new URL(window.location.href);
+            const path = url.pathname.split("/");
+            const currentMap = path[2];
 
-                if (agent === "") {
-                    navigate(`/maps/${currentMap}`);
-                } else {
-                    navigate(`/maps/${currentMap}/${agent}`);
-                }
-            }),
-    );
+            if (agent === "") {
+                navigate(`/maps/${currentMap}`);
+            } else {
+                navigate(`/maps/${currentMap}/${agent}`);
+            }
+        });
+    });
 </script>

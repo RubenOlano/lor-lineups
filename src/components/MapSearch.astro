@@ -14,39 +14,32 @@ const { currentMap } = Astro.props;
 <div class="flex flex-col space-y-4">
     <label for="agent" class="text-lg font-semibold text-gray-800">Map</label>
     <div class="relative">
-        <select
-            id="agent"
-            name="agent"
+        <input
+            type="text"
+            list="maps"
+            value={currentMap
+                ? `${currentMap[0]!.toUpperCase()}${currentMap.slice(1)}`
+                : ""}
             class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
-        >
+            placeholder="Select a Map"
+            autofocus
+            autocomplete="maps"
+            tabindex="0"
+        />
+        <datalist id="maps">
             <option value="" disabled>Select a Map</option>
             <option value=""> All Maps </option>
             {
                 uniqueMaps.map((map) => (
                     <option
-                        value={map.toLowerCase()}
+                        value={map}
                         selected={map.toLowerCase() === currentMap}
                     >
                         {map}
                     </option>
                 ))
             }
-        </select>
-        <div
-            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
-        >
-            <svg
-                class="w-5 h-5 text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-            >
-                <path
-                    fill-rule="evenodd"
-                    d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707A1 1 0 114.293 8.293l5-5A1 1 0 0110 3z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </div>
+        </datalist>
     </div>
 </div>
 
@@ -54,9 +47,11 @@ const { currentMap } = Astro.props;
     import { navigate } from "astro:transitions/client";
     document.addEventListener("astro:page-load", () =>
         document
-            .getElementById("agent")!
+            .querySelector("input[list='maps']")!
             .addEventListener("change", (event) => {
-                const map = (event.target as HTMLSelectElement).value;
+                const map = (
+                    event.target as HTMLSelectElement
+                ).value.toLowerCase();
                 const url = new URL(window.location.href);
                 const path = url.pathname.split("/");
                 const currentAgent = path[2];
