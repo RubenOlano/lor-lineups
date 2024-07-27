@@ -1,72 +1,77 @@
 ---
-import { Image } from "astro:assets";
-import { getMapImage } from "@/util/maps";
-import { getAgentImage } from "@/util/agents";
-
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { getAgentImage } from "@/util/agents";
+import { getMapImage } from "@/util/maps";
+
+const featuredAgents = ["Kayo", "Sova", "Gekko", "Phoenix"];
+const featuredMaps = ["Ascent", "Bind", "Haven", "Split"];
 ---
 
 <BaseLayout title="Valorant Setups">
-    <main class="p-4 md:p-8 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <p class="text-lg mt-4 mb-8 text-gray-800 text-center">
-                A collection of setups for maps in Valorant. All in one
-                convenient place.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <a
-                    class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-105"
-                    href="/maps"
-                >
-                    <div class="text-center mb-4">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                            Search by Maps
-                        </h2>
-                        <div class="flex justify-center space-x-4">
-                            {
-                                ["Ascent", "Bind", "Split"].map((map) => (
-                                    <Image
-                                        src={getMapImage(map)}
-                                        alt={map}
-                                        class="w-24 h-24 rounded-full shadow-md object-cover border-white"
-                                        height="96"
-                                        width="175"
-                                    />
-                                ))
-                            }
+    <div class="max-w-7xl mx-auto text-center p-4 md:p-8">
+        <h1 class="text-5xl font-extrabold text-gray-900 mb-8">
+            Welcome to Valorant Setups
+        </h1>
+        <p class="text-xl text-gray-700 mb-12">
+            Your ultimate resource for Valorant lineups and setups. Find the
+            best strategies for your favorite agents and maps.
+        </p>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-8">
+            Explore Agents
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
+            {
+                featuredAgents.map((agent) => (
+                    <a
+                        href={`/agents/${agent.toLowerCase()}`}
+                        class="group block bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                        aria-label={`View setups for ${agent}`}
+                    >
+                        <div class="relative overflow-hidden rounded-lg">
+                            <Image
+                                src={getAgentImage(agent)}
+                                alt={agent}
+                                class="w-full h-48 object-cover transition-transform duration-500 transform group-hover:scale-110"
+                                width="250"
+                                height="250"
+                            />
+                            <div class="absolute inset-0 bg-black bg-opacity-25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
                         </div>
-                    </div>
-                    <p class="text-gray-700">
-                        Explore setups by selecting a map.
-                    </p>
-                </a>
-                <a
-                    class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-between transition-all duration-300 hover:shadow-lg hover:scale-105"
-                    href="/agents"
-                >
-                    <div class="text-center mb-4">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                            Search by Agents
+                        <h2 class="mt-4 text-2xl font-bold text-gray-900 text-center">
+                            {agent}
                         </h2>
-                        <div class="flex justify-center space-x-4">
-                            {
-                                ["Jett", "Sova", "Reyna"].map((agent) => (
-                                    <Image
-                                        src={getAgentImage(agent)}
-                                        alt={agent}
-                                        class="w-24 h-24 rounded-full shadow-md bg-slate-100 border-white"
-                                        height={96}
-                                        width={96}
-                                    />
-                                ))
-                            }
-                        </div>
-                    </div>
-                    <p class="text-gray-700">
-                        Explore setups by selecting an agent.
-                    </p>
-                </a>
-            </div>
+                    </a>
+                ))
+            }
         </div>
-    </main>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-8">Explore Maps</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            {
+                featuredMaps.map((map) => (
+                    <a
+                        href={`/maps/${map.toLowerCase()}`}
+                        class="group block bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                        aria-label={`View setups for ${map}`}
+                    >
+                        <div class="relative overflow-hidden rounded-lg">
+                            <Image
+                                src={getMapImage(map)}
+                                alt={map}
+                                class="w-full h-48 object-cover transition-transform duration-500 transform group-hover:scale-110"
+                                height="250"
+                                width="350"
+                            />
+                            <div class="absolute inset-0 bg-black bg-opacity-25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">
+                                <h2 class="text-xl font-bold text-white">
+                                    {map}
+                                </h2>
+                            </div>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
 </BaseLayout>

@@ -7,7 +7,10 @@ const { agent, map, site, isAttacking, isUlt, video, images, title } =
     Astro.props as Props;
 ---
 
-<BaseLayout title={`${agent} Setup on ${map} - ${site} Site`}>
+<BaseLayout
+    title={`${agent} Setup on ${map} - ${site} Site`}
+    keywords={[agent, map, site]}
+>
     <div class="max-w-5xl mx-auto py-5 px-5 md:px-0">
         <header class="text-center mb-8">
             <h1 class="text-xl md:text-3xl font-extrabold text-gray-800 mb-4">

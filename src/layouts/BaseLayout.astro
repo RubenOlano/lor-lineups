@@ -4,9 +4,15 @@ import Footer from "@/components/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
 type Props = {
     title: string;
+    description?: string;
+    keywords?: string[];
 };
 
 const props = Astro.props;
+const baseKeywords = ["Valorant", "setups", "lineups"];
+const keywords = baseKeywords.concat(props.keywords ?? []);
+const description =
+    props.description ?? "Valorant setups and lineups all in one place";
 ---
 
 <html lang="en">
@@ -17,8 +23,20 @@ const props = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <meta
             name="description"
-            content="Valorant setups and lineups all in one place"
+            content={props.description ??
+                "Valorant setups and lineups all in one place"}
         />
+        <meta name="keywords" content={keywords.join(", ")} />
+        <meta name="author" content="Ruben Olano" />
+        <meta property="og:title" content={props.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="lor.rubenolano.app" />
+        <meta property="og:image" content="/favicon.svg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={props.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="/favicon.svg" />
         <title>{props.title}</title>
         <ViewTransitions />
     </head>
