@@ -31,7 +31,14 @@ const { title, agent, site, map, isAttacking, isUlt } = Astro.props as Props;
         <Image
             src={getAgentImage(agent)}
             alt={agent}
-            class="w-20 h-20 rounded-full shadow-md absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-4 border-white bg-slate-100"
+            class="w-20 h-20 rounded-full shadow-md absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-4 border-white"
+            class:list={[
+                { "bg-red-400": isAttacking, "bg-blue-300": !isAttacking },
+                {
+                    "border-red-400": isAttacking,
+                    "border-blue-300": !isAttacking,
+                },
+            ]}
             width="80"
             height="80"
         />
