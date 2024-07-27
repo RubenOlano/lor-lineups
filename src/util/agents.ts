@@ -51,6 +51,8 @@ export const agentMap: Record<string, ImageMetadata> = {
   yoru: YoruIcon,
 };
 
+export const agentList = Object.keys(agentMap);
+
 export function getAgentImage(agent: string): ImageMetadata {
   agent = agent.toLowerCase();
   return agentMap[agent] ?? DefaultIcon;

@@ -1,8 +1,6 @@
 ---
-import { mapMap } from "@/util/maps";
-const uniqueMaps = Object.keys(mapMap).map(
-    (map) => map[0]!.toUpperCase() + map.slice(1),
-);
+import { mapList } from "@/util/maps";
+const uniqueMaps = mapList.map((map) => map[0]!.toUpperCase() + map.slice(1));
 
 type Props = {
     currentMap?: string;
@@ -45,7 +43,9 @@ const { currentMap } = Astro.props;
 
 <script>
     import { navigate } from "astro:transitions/client";
-    document.addEventListener("astro:page-load", () =>
+    import { mapList } from "@/util/maps";
+
+    document.addEventListener("astro:page-load", () => {
         document
             .querySelector("input[list='maps']")!
             .addEventListener("change", (event) => {
@@ -61,6 +61,24 @@ const { currentMap } = Astro.props;
                 } else {
                     navigate(`/agents/${currentAgent}/${map}`);
                 }
-            }),
-    );
+            });
+
+        document
+            .querySelector("input[list='maps']")!
+            .addEventListener("keydown", (event) => {
+                if ((event as KeyboardEvent).key !== "Tab") return;
+                const map = (
+                    event.target as HTMLSelectElement
+                ).value.toLowerCase();
+
+                if (map === "") return;
+                const closestMap = mapList.find((mapItem) =>
+                    mapItem.startsWith(map),
+                );
+
+                if (!closestMap) return;
+
+                (event.target as HTMLSelectElement).value = closestMap;
+            });
+    });
 </script>

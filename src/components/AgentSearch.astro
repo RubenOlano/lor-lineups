@@ -1,7 +1,7 @@
 ---
-import { agentMap } from "@/util/agents";
+import { agentList } from "@/util/agents";
 
-const uniqueAgents = Object.keys(agentMap).map(
+const uniqueAgents = agentList.map(
     (agent) => agent[0]!.toUpperCase() + agent.slice(1),
 );
 
@@ -46,6 +46,8 @@ const { currentAgent } = Astro.props as Props;
 
 <script>
     import { navigate } from "astro:transitions/client";
+    import { agentList } from "@/util/agents";
+
     document.addEventListener("astro:page-load", () => {
         const input = document.querySelector("input[list='agents']");
         input?.addEventListener("change", (event) => {
@@ -61,6 +63,22 @@ const { currentAgent } = Astro.props as Props;
             } else {
                 navigate(`/maps/${currentMap}/${agent}`);
             }
+        });
+
+        input?.addEventListener("keydown", (event) => {
+            if ((event as KeyboardEvent).key !== "Tab") return;
+            const agent = (input as HTMLInputElement).value.toLowerCase();
+            if (agent === "") return;
+
+            const closestAgent = agentList.find((agentItem) =>
+                agentItem.startsWith(agent),
+            );
+            console.log(closestAgent);
+
+            if (!closestAgent) return;
+
+            (input as HTMLInputElement).value =
+                closestAgent[0]!.toUpperCase() + closestAgent.slice(1);
         });
     });
 </script>

@@ -25,6 +25,8 @@ export const mapMap: Record<string, ImageMetadata> = {
   sunset: Sunset,
 };
 
+export const mapList = Object.keys(mapMap);
+
 export function getMapImage(map: string): ImageMetadata {
   return mapMap[map.toLowerCase()] ?? DefaultIcon;
 }
