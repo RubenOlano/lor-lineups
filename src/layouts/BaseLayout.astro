@@ -1,7 +1,6 @@
 ---
 import HeaderNav from "@/components/HeaderNav.astro";
 import Footer from "@/components/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
 type Props = {
     title: string;
     description?: string;
@@ -34,7 +33,11 @@ const description =
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="/favicon.svg" />
         <title>{props.title}</title>
-        <ViewTransitions />
+        <style>
+            @view-transition {
+                navigation: auto; /* enabled */
+            }
+        </style>
     </head>
     <body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
         <header>
