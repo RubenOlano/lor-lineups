@@ -2,8 +2,31 @@
 import Logo from "../../public/favicon.svg";
 ---
 
+<script>
+    let isOpen = false;
+
+    function toggleMenu() {
+        isOpen = !isOpen;
+        const menu = document.getElementById("mobile-menu")!;
+        if (isOpen) {
+            menu.classList.remove("hidden");
+            menu.classList.add("block");
+        } else {
+            menu.classList.remove("block");
+            menu.classList.add("hidden");
+        }
+    }
+
+    document
+        .getElementById("menu-toggle")
+        ?.addEventListener("pointerdown", toggleMenu);
+</script>
+
 <header class="bg-gray-800 text-white py-4 px-4 md:px-2">
-    <nav class="container mx-auto flex justify-between items-center">
+    <nav
+        class="container mx-auto flex justify-between items-center"
+        role="navigation"
+    >
         <div class="flex items-center space-x-4">
             <a href="/">
                 <img
@@ -19,15 +42,52 @@ import Logo from "../../public/favicon.svg";
                 Valorant Setups
             </a>
         </div>
-        <ul class="flex space-x-4">
-            <li>
-                <a
-                    href="/about"
-                    class="hover:text-gray-300 transition-colors duration-300"
+        <div class="hidden md:flex items-center space-x-4">
+            {
+                ["about", "agents", "maps"].map((route) => (
+                    <a
+                        href={`/${route}`}
+                        class="hover:text-gray-300 transition-colors duration-300"
+                    >
+                        {route.charAt(0).toUpperCase() + route.slice(1)}
+                    </a>
+                ))
+            }
+        </div>
+        <div class="md:hidden">
+            <button
+                class="text-white focus:outline-none"
+                id="menu-toggle"
+                aria-label="Toggle menu"
+            >
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
-                    About
-                </a>
-            </li>
-        </ul>
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
+    <div id="mobile-menu" class="md:hidden hidden">
+        <nav class="flex flex-col items-end space-y-2 py-4">
+            {
+                ["about", "agents", "maps"].map((route) => (
+                    <a
+                        href={`/${route}`}
+                        class="hover:text-gray-300 transition-colors duration-300"
+                    >
+                        {route.charAt(0).toUpperCase() + route.slice(1)}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
 </header>
