@@ -1,1 +1,0 @@
-let n=!1;function t(){n=!n;const e=document.getElementById("mobile-menu");n?(e.classList.remove("hidden"),e.classList.add("block")):(e.classList.remove("block"),e.classList.add("hidden"))}document.getElementById("menu-toggle")?.addEventListener("pointerdown",t);
