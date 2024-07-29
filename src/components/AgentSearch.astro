@@ -48,37 +48,33 @@ const { currentAgent } = Astro.props as Props;
     import { navigate } from "astro:transitions/client";
     import { agentList } from "@/util/agents";
 
-    document.addEventListener("astro:page-load", () => {
-        const input = document.querySelector("input[list='agents']");
-        input?.addEventListener("change", (event) => {
-            const agent = (
-                event.target as HTMLInputElement
-            ).value.toLowerCase();
-            const url = new URL(window.location.href);
-            const path = url.pathname.split("/");
-            const currentMap = path[2];
+    const input = document.querySelector("input[list='agents']");
+    input?.addEventListener("change", (event) => {
+        const agent = (event.target as HTMLInputElement).value.toLowerCase();
+        const url = new URL(window.location.href);
+        const path = url.pathname.split("/");
+        const currentMap = path[2];
 
-            if (agent === "") {
-                navigate(`/maps/${currentMap}`);
-            } else {
-                navigate(`/maps/${currentMap}/${agent}`);
-            }
-        });
+        if (agent === "") {
+            navigate(`/maps/${currentMap}`);
+        } else {
+            navigate(`/maps/${currentMap}/${agent}`);
+        }
+    });
 
-        input?.addEventListener("keydown", (event) => {
-            if ((event as KeyboardEvent).key !== "Tab") return;
-            const agent = (input as HTMLInputElement).value.toLowerCase();
-            if (agent === "") return;
+    input?.addEventListener("keydown", (event) => {
+        if ((event as KeyboardEvent).key !== "Tab") return;
+        const agent = (input as HTMLInputElement).value.toLowerCase();
+        if (agent === "") return;
 
-            const closestAgent = agentList.find((agentItem) =>
-                agentItem.startsWith(agent),
-            );
-            console.log(closestAgent);
+        const closestAgent = agentList.find((agentItem) =>
+            agentItem.startsWith(agent),
+        );
+        console.log(closestAgent);
 
-            if (!closestAgent) return;
+        if (!closestAgent) return;
 
-            (input as HTMLInputElement).value =
-                closestAgent[0]!.toUpperCase() + closestAgent.slice(1);
-        });
+        (input as HTMLInputElement).value =
+            closestAgent[0]!.toUpperCase() + closestAgent.slice(1);
     });
 </script>

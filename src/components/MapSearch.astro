@@ -45,40 +45,34 @@ const { currentMap } = Astro.props;
     import { navigate } from "astro:transitions/client";
     import { mapList } from "@/util/maps";
 
-    document.addEventListener("astro:page-load", () => {
-        document
-            .querySelector("input[list='maps']")!
-            .addEventListener("change", (event) => {
-                const map = (
-                    event.target as HTMLSelectElement
-                ).value.toLowerCase();
-                const url = new URL(window.location.href);
-                const path = url.pathname.split("/");
-                const currentAgent = path[2];
+    document
+        .querySelector("input[list='maps']")!
+        .addEventListener("change", (event) => {
+            const map = (event.target as HTMLSelectElement).value.toLowerCase();
+            const url = new URL(window.location.href);
+            const path = url.pathname.split("/");
+            const currentAgent = path[2];
 
-                if (map === "") {
-                    navigate(`/agents/${currentAgent}`);
-                } else {
-                    navigate(`/agents/${currentAgent}/${map}`);
-                }
-            });
+            if (map === "") {
+                navigate(`/agents/${currentAgent}`);
+            } else {
+                navigate(`/agents/${currentAgent}/${map}`);
+            }
+        });
 
-        document
-            .querySelector("input[list='maps']")!
-            .addEventListener("keydown", (event) => {
-                if ((event as KeyboardEvent).key !== "Tab") return;
-                const map = (
-                    event.target as HTMLSelectElement
-                ).value.toLowerCase();
+    document
+        .querySelector("input[list='maps']")!
+        .addEventListener("keydown", (event) => {
+            if ((event as KeyboardEvent).key !== "Tab") return;
+            const map = (event.target as HTMLSelectElement).value.toLowerCase();
 
-                if (map === "") return;
-                const closestMap = mapList.find((mapItem) =>
-                    mapItem.startsWith(map),
-                );
+            if (map === "") return;
+            const closestMap = mapList.find((mapItem) =>
+                mapItem.startsWith(map),
+            );
 
-                if (!closestMap) return;
+            if (!closestMap) return;
 
-                (event.target as HTMLSelectElement).value = closestMap;
-            });
-    });
+            (event.target as HTMLSelectElement).value = closestMap;
+        });
 </script>
