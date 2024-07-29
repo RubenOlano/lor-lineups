@@ -3,24 +3,15 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SetupGridItem from "@/components/SetupGridItem.astro";
 import AgentSearch from "@/components/AgentSearch.astro";
-import { mapMap } from "@/util/maps";
-
-export async function getStaticPaths() {
-    const entries = await getCollection("setup");
-    const uniqueMaps = Object.keys(mapMap);
-    return uniqueMaps.map((map) => {
-        const filteredSetups = entries.filter(
-            (entry) => entry.data.map.toLowerCase() === map.toLowerCase(),
-        );
-        return {
-            params: { map: map.toLowerCase() },
-            props: { setups: filteredSetups },
-        };
-    });
-}
 
 const { map } = Astro.params;
-const { setups } = Astro.props;
+
+if (!map) throw new Error("No map param provided");
+
+const setups = await getCollection(
+    "setup",
+    (entry) => entry.data.map.toLowerCase() === map.toLowerCase(),
+);
 
 const title = `Setups for ${map[0]!.toUpperCase()}${map.slice(1)}`;
 ---
@@ -41,7 +32,11 @@ const title = `Setups for ${map[0]!.toUpperCase()}${map.slice(1)}`;
             )
         }
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {setups.map((setup) => <SetupGridItem {...setup.data} />)}
+            {
+                setups.map((setup) => (
+                    <SetupGridItem {...setup.data} slug={setup.slug} />
+                ))
+            }
         </div>
     </div>
 </BaseLayout>

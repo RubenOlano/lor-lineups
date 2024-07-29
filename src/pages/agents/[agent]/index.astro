@@ -3,25 +3,13 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SetupGridItem from "@/components/SetupGridItem.astro";
 import MapSearch from "@/components/MapSearch.astro";
-import { agentMap } from "@/util/agents";
-
-export async function getStaticPaths() {
-    const entries = await getCollection("setup");
-    const uniqueAgents = Object.keys(agentMap);
-
-    return uniqueAgents.map((agent) => {
-        const filteredSetups = entries.filter(
-            (entry) => entry.data.agent.toLowerCase() === agent.toLowerCase(),
-        );
-        return {
-            params: { agent: agent.toLowerCase() },
-            props: { setups: filteredSetups },
-        };
-    });
-}
 
 const { agent } = Astro.params;
-const { setups } = Astro.props;
+if (!agent) throw new Error("Missing agent parameter");
+const setups = await getCollection(
+    "setup",
+    (entry) => entry.data.agent.toLowerCase() === agent.toLowerCase(),
+);
 
 const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)}`;
 ---
@@ -44,7 +32,11 @@ const title = `Setups for ${agent[0]!.toUpperCase()}${agent.slice(1)}`;
             )
         }
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {setups.map((setup) => <SetupGridItem {...setup.data} />)}
+            {
+                setups.map((setup) => (
+                    <SetupGridItem {...setup.data} slug={setup.slug} />
+                ))
+            }
         </div>
     </div>
 </BaseLayout>

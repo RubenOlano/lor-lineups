@@ -10,14 +10,16 @@ type Props = {
     site: "A" | "B" | "C";
     isAttacking: boolean;
     isUlt: boolean;
+    slug: string;
 };
 
-const { title, agent, site, map, isAttacking, isUlt } = Astro.props as Props;
+const { title, agent, site, map, isAttacking, isUlt, slug } =
+    Astro.props as Props;
 ---
 
 <a
     class="bg-white pb-4 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center"
-    href={`/setup/${title}`}
+    href={`/setup/${slug}`}
     title={`View details for ${title}`}
 >
     <div class="relative mb-4">
