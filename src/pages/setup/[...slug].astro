@@ -1,18 +1,19 @@
 ---
+import { getCollection } from "astro:content";
 import SetupLayout from "@/layouts/SetupLayout.astro";
-import { getEntry } from "astro:content";
-
-const { slug } = Astro.params;
-
-if (!slug) throw new Error("No slug provided");
-
-const entry = await getEntry("setup", slug);
-
-if (!entry) return Astro.redirect("/404");
-
+export async function getStaticPaths() {
+	const entries = await getCollection("setup");
+	return entries.map((entry) => ({
+		params: {
+			slug: entry.slug,
+		},
+		props: { entry },
+	}));
+}
+const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
 <SetupLayout {...entry.data}>
-    <Content />
+	<Content />
 </SetupLayout>

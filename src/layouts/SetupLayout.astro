@@ -4,59 +4,61 @@ import BaseLayout from "./BaseLayout.astro";
 type Props = CollectionEntry<"setup">["data"];
 
 const { agent, map, site, isAttacking, isUlt, video, images, title } =
-    Astro.props as Props;
+	Astro.props as Props;
 ---
 
 <BaseLayout
-    title={`${agent} Setup on ${map} - ${site} Site`}
-    keywords={[agent, map, site]}
+	title={`${agent} Setup on ${map} - ${site} Site`}
+	keywords={[agent, map, site]}
 >
-    <div class="max-w-5xl mx-auto py-5 px-5 md:px-0">
-        <header class="text-center mb-8">
-            <h1 class="text-xl md:text-3xl font-extrabold text-gray-800 mb-4">
-                {title}
-            </h1>
-            <p class="text-lg md:text-xl text-gray-700 font-light">
-                {isAttacking ? "Attacking" : "Defending"} - {
-                    isUlt ? "Ultimate" : "Regular"
-                } Setup
-            </p>
-        </header>
-        <section class="mb-10">
-            <h2 class="text-2xl font-semibold mb-6 text-gray-900 text-center">
-                Video Guide
-            </h2>
-            <div class="relative pb-[56.25%] h-0 overflow-hidden">
-                <iframe
-                    class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md"
-                    src={video}
-                    allowfullscreen
-                    title={`Video guide for ${agent} on ${map} site ${site}`}
-                ></iframe>
-            </div>
-        </section>
+	<div class="max-w-5xl mx-auto py-5 px-5 md:px-0">
+		<header class="text-center mb-8">
+			<h1
+				class="text-xl md:text-3xl font-extrabold text-gray-800 mb-4"
+				transition:name={title}
+			>
+				{title}
+			</h1>
+			<p class="text-lg md:text-xl text-gray-700 font-light">
+				{isAttacking ? "Attacking" : "Defending"} - {
+					isUlt ? "Ultimate" : "Regular"
+				} Setup
+			</p>
+		</header>
+		<section class="mb-10">
+			<h2 class="text-2xl font-semibold mb-6 text-gray-900 text-center">
+				Video Guide
+			</h2>
+			<div class="relative pb-[56.25%] h-0 overflow-hidden">
+				<iframe
+					class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md"
+					src={video}
+					allowfullscreen
+					title={`Video guide for ${agent} on ${map} site ${site}`}></iframe>
+			</div>
+		</section>
 
-        <slot />
+		<slot />
 
-        {
-            images.length > 0 && (
-                <section class="bg-white p-8 rounded-lg shadow-lg mb-10">
-                    <h2 class="text-3xl font-semibold mb-6 text-gray-900 text-center">
-                        Image References
-                    </h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {images.map((image, index) => (
-                            <div class="overflow-hidden rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105">
-                                <img
-                                    src={image}
-                                    alt={`Reference image ${index + 1} for ${agent} on ${map} site ${site}`}
-                                    class="w-full h-auto"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </section>
-            )
-        }
-    </div>
+		{
+			images.length > 0 && (
+				<section class="bg-white p-8 rounded-lg shadow-lg mb-10">
+					<h2 class="text-3xl font-semibold mb-6 text-gray-900 text-center">
+						Image References
+					</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+						{images.map((image, index) => (
+							<div class="overflow-hidden rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105">
+								<img
+									src={image}
+									alt={`Reference image ${index + 1} for ${agent} on ${map} site ${site}`}
+									class="w-full h-auto"
+								/>
+							</div>
+						))}
+					</div>
+				</section>
+			)
+		}
+	</div>
 </BaseLayout>
