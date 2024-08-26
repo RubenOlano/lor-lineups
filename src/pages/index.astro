@@ -20,7 +20,13 @@ const featuredMaps = ["Ascent", "Bind", "Haven", "Split"];
 			Your ultimate resource for Valorant lineups and setups. Find the best
 			strategies for your favorite agents and maps.
 		</p>
-		<h2 class="text-4xl font-extrabold text-gray-900 mb-8">Explore Agents</h2>
+		<h2 class="text-4xl font-extrabold text-gray-900 mb-8">
+			Explore <a
+				href="/agents"
+				class="text-blue-500 hover:underline"
+				transition:name="agents">Agents</a
+			>
+		</h2>
 		<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
 			{
 				featuredAgents.map((agent) => (
@@ -49,7 +55,12 @@ const featuredMaps = ["Ascent", "Bind", "Haven", "Split"];
 				))
 			}
 		</div>
-		<h2 class="text-4xl font-extrabold text-gray-900 mb-8">Explore Maps</h2>
+		<h2 class="text-4xl font-extrabold text-gray-900 mb-8">
+			Explore <a
+				href="/maps"
+				class="text-blue-500 hover:underline"
+				transition:name="maps">Maps</a>
+		</h2>
 		<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
 			{
 				featuredMaps.map((map) => (
