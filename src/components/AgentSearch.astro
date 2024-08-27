@@ -2,78 +2,82 @@
 import { agentList } from "@/util/agents";
 
 const uniqueAgents = agentList.map(
-    (agent) => agent[0]!.toUpperCase() + agent.slice(1),
+	(agent) => agent[0]!.toUpperCase() + agent.slice(1)
 );
 
 type Props = {
-    currentAgent?: string;
+	currentAgent?: string;
 };
 
 const { currentAgent } = Astro.props as Props;
 ---
 
 <div class="flex flex-col space-y-4">
-    <label for="agent" class="text-lg font-semibold text-gray-800">Agent</label>
-    <div class="relative">
-        <input
-            type="text"
-            list="agents"
-            value={currentAgent
-                ? `${currentAgent[0]!.toUpperCase()}${currentAgent.slice(1)}`
-                : ""}
-            class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
-            placeholder="Select an Agent"
-            autofocus
-            autocomplete="agents"
-            tabindex="0"
-        />
-        <datalist id="agents">
-            <option value="" disabled>Select an Agent</option>
-            <option value="">All Agents</option>
-            {
-                uniqueAgents.map((agent) => (
-                    <option
-                        value={agent}
-                        selected={agent.toLowerCase() === currentAgent}
-                    >
-                        {agent}
-                    </option>
-                ))
-            }
-        </datalist>
-    </div>
+	<label for="agent" class="text-lg font-semibold text-gray-800"> Agent </label>
+	<div class="relative">
+		<input
+			type="text"
+			list="agents"
+			value={currentAgent
+				? `${currentAgent[0]!.toUpperCase()}${currentAgent.slice(1)}`
+				: ""}
+			class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
+			placeholder="Select an Agent"
+			autofocus
+			autocomplete="off"
+			aria-label="Select an agent from the list"
+			tabindex="0"
+		/>
+		<datalist id="agents">
+			<option value="" disabled>Select an Agent</option>
+			<option value="">All Agents</option>
+			{
+				uniqueAgents.map((agent) => (
+					<option
+						value={agent}
+						selected={agent.toLowerCase() === currentAgent?.toLowerCase()}
+					>
+						{agent}
+					</option>
+				))
+			}
+		</datalist>
+	</div>
 </div>
 
 <script>
-    import { navigate } from "astro:transitions/client";
-    import { agentList } from "@/util/agents";
+	import { navigate } from "astro:transitions/client";
+	import { agentList } from "@/util/agents";
 
-    const input = document.querySelector("input[list='agents']");
-    input?.addEventListener("change", (event) => {
-        const agent = (event.target as HTMLInputElement).value.toLowerCase();
-        const url = new URL(window.location.href);
-        const path = url.pathname.split("/");
-        const currentMap = path[2];
+	document.addEventListener("astro:page-load", () => {
+		const input = document.querySelector("input[list='agents']");
 
-        if (agent === "") {
-            navigate(`/maps/${currentMap}`);
-        } else {
-            navigate(`/maps/${currentMap}/${agent}`);
-        }
-    });
+		input?.addEventListener("change", (event) => {
+			const agent = (event.target as HTMLInputElement).value.toLowerCase();
+			const url = new URL(window.location.href);
+			const path = url.pathname.split("/");
+			const currentMap = path[2];
 
-    input?.addEventListener("keydown", (event) => {
-        if ((event as KeyboardEvent).key !== "Tab") return;
-        const agent = (input as HTMLInputElement).value.toLowerCase();
-        if (agent === "") return;
+			if (agent === "") {
+				navigate(`/maps/${currentMap}`);
+			} else {
+				navigate(`/maps/${currentMap}/${agent}`);
+			}
+		});
 
-        const closestAgent = agentList.find((agentItem) =>
-            agentItem.startsWith(agent),
-        );
+		input?.addEventListener("keydown", (event) => {
+			if ((event as KeyboardEvent).key !== "Tab") return;
+			const agent = (input as HTMLInputElement).value.toLowerCase();
+			if (agent === "") return;
 
-        if (!closestAgent) return;
+			const closestAgent = agentList.find((agentItem) =>
+				agentItem.startsWith(agent)
+			);
 
-        (input as HTMLInputElement).value =
-            closestAgent[0]!.toUpperCase() + closestAgent.slice(1);
-    });
+			if (!closestAgent) return;
+
+			(input as HTMLInputElement).value =
+				closestAgent[0]!.toUpperCase() + closestAgent.slice(1);
+		});
+	});
 </script>

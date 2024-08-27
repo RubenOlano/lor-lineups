@@ -1,93 +1,111 @@
 ---
 import Logo from "../../public/favicon.svg";
+
+const routes = ["about", "agents", "maps", "legal"];
 ---
 
-<script>
-    let isOpen = false;
+<header class="bg-gray-800 text-white py-4 px-4 md:px-8">
+	<nav
+		class="container mx-auto flex justify-between items-center"
+		role="navigation"
+	>
+		<div class="flex items-center space-x-4">
+			<a href="/">
+				<img src={Logo.src} alt="Valorant Setups Logo" class="w-10 h-10" />
+			</a>
+			<a
+				href="/"
+				class="text-2xl font-bold hover:text-gray-300 transition-colors duration-300"
+			>
+				Valorant Setups
+			</a>
+		</div>
+		<div class="hidden md:flex items-center space-x-6">
+			{
+				routes.map((route) => (
+					<a
+						href={`/${route}`}
+						class="text-lg hover:text-gray-300 transition-colors duration-300"
+					>
+						{route.charAt(0).toUpperCase() + route.slice(1)}
+					</a>
+				))
+			}
+		</div>
+		<div class="md:hidden">
+			<button
+				class="text-white focus:outline-none"
+				aria-label="Toggle menu"
+				popovertarget="mobile-menu"
+			>
+				<svg
+					class="w-6 h-6"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16m-7 6h7"></path>
+				</svg>
+			</button>
+		</div>
+	</nav>
+	<div
+		id="mobile-menu"
+		class="bg-gray-800 text-white shadow-lg rounded-md absolute top-16 right-4 w-48 z-50"
+		popover
+	>
+		<nav class="flex flex-col space-y-2 py-4 px-6">
+			{
+				routes.map((route) => (
+					<a
+						href={`/${route}`}
+						class="text-lg hover:text-gray-300 transition-colors duration-300"
+					>
+						{route.charAt(0).toUpperCase() + route.slice(1)}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+	<style>
+		[popover] {
+			background: inherit;
+			opacity: 0.95;
+			color: white;
+			font-weight: 400;
+			padding: 1rem;
+			border-radius: 1rem;
+			line-height: 1.4;
+			top: 5rem;
+			margin: 0 auto;
+			gap: 1rem;
+		}
 
-    function toggleMenu() {
-        isOpen = !isOpen;
-        const menu = document.getElementById("mobile-menu")!;
-        if (isOpen) {
-            menu.classList.remove("hidden");
-            menu.classList.add("block");
-        } else {
-            menu.classList.remove("block");
-            menu.classList.add("hidden");
-        }
-    }
+		[popover]:popover-open {
+			display: flex;
+		}
 
-    document
-        .getElementById("menu-toggle")
-        ?.addEventListener("pointerdown", toggleMenu);
-</script>
+		[popover]:popover-open {
+			translate: 0 0;
+		}
 
-<header class="bg-gray-800 text-white py-4 px-4 md:px-2">
-    <nav
-        class="container mx-auto flex justify-between items-center"
-        role="navigation"
-    >
-        <div class="flex items-center space-x-4">
-            <a href="/">
-                <img
-                    src={Logo.src}
-                    alt="Valorant Setups Logo"
-                    class="w-10 h-10"
-                />
-            </a>
-            <a
-                href="/"
-                class="text-2xl font-bold hover:text-gray-300 transition-colors duration-300"
-            >
-                Valorant Setups
-            </a>
-        </div>
-        <div class="hidden md:flex items-center space-x-4">
-            {
-                ["about", "agents", "maps"].map((route) => (
-                    <a
-                        href={`/${route}`}
-                        class="hover:text-gray-300 transition-colors duration-300"
-                    >
-                        {route.charAt(0).toUpperCase() + route.slice(1)}
-                    </a>
-                ))
-            }
-        </div>
-        <div class="md:hidden">
-            <button
-                class="text-white focus:outline-none"
-                id="menu-toggle"
-                aria-label="Toggle menu"
-            >
-                <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </div>
-    </nav>
-    <div id="mobile-menu" class="md:hidden hidden">
-        <nav class="flex flex-col items-end space-y-2 py-4">
-            {
-                ["about", "agents", "maps"].map((route) => (
-                    <a
-                        href={`/${route}`}
-                        class="hover:text-gray-300 transition-colors duration-300"
-                    >
-                        {route.charAt(0).toUpperCase() + route.slice(1)}
-                    </a>
-                ))
-            }
-        </nav>
-    </div>
+		[popover] {
+			transition:
+				translate 0.5s ease-out,
+				overlay 0.5s ease-out,
+				display 0.5s ease-out allow-discrete;
+			translate: 0 -22rem;
+		}
+
+		@starting-style {
+			[popover]:popover-open {
+				translate: 0 -22rem;
+			}
+		}
+	</style>
 </header>

@@ -3,76 +3,70 @@ import { mapList } from "@/util/maps";
 const uniqueMaps = mapList.map((map) => map[0]!.toUpperCase() + map.slice(1));
 
 type Props = {
-    currentMap?: string;
+	currentMap?: string;
 };
 
 const { currentMap } = Astro.props;
 ---
 
 <div class="flex flex-col space-y-4">
-    <label for="agent" class="text-lg font-semibold text-gray-800">Map</label>
-    <div class="relative">
-        <input
-            type="text"
-            list="maps"
-            value={currentMap
-                ? `${currentMap[0]!.toUpperCase()}${currentMap.slice(1)}`
-                : ""}
-            class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
-            placeholder="Select a Map"
-            autofocus
-            autocomplete="maps"
-            tabindex="0"
-        />
-        <datalist id="maps">
-            <option value="" disabled>Select a Map</option>
-            <option value=""> All Maps </option>
-            {
-                uniqueMaps.map((map) => (
-                    <option
-                        value={map}
-                        selected={map.toLowerCase() === currentMap}
-                    >
-                        {map}
-                    </option>
-                ))
-            }
-        </datalist>
-    </div>
+	<label for="map" class="text-lg font-semibold text-gray-800">Map</label>
+	<div class="relative">
+		<input
+			type="text"
+			list="maps"
+			value={currentMap
+				? `${currentMap[0]!.toUpperCase()}${currentMap.slice(1)}`
+				: ""}
+			class="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out hover:border-blue-500"
+			placeholder="Select a Map"
+			autofocus
+			autocomplete="off"
+			tabindex="0"
+			id="mapInput"
+		/>
+		<datalist id="maps">
+			<option value="" disabled>Select a Map</option>
+			<option value=""> All Maps </option>
+			{
+				uniqueMaps.map((map) => (
+					<option value={map} selected={map.toLowerCase() === currentMap}>
+						{map}
+					</option>
+				))
+			}
+		</datalist>
+	</div>
 </div>
 
 <script>
-    import { navigate } from "astro:transitions/client";
-    import { mapList } from "@/util/maps";
+	import { navigate } from "astro:transitions/client";
+	import { mapList } from "@/util/maps";
 
-    document
-        .querySelector("input[list='maps']")!
-        .addEventListener("change", (event) => {
-            const map = (event.target as HTMLSelectElement).value.toLowerCase();
-            const url = new URL(window.location.href);
-            const path = url.pathname.split("/");
-            const currentAgent = path[2];
+	const input = document.getElementById("mapInput");
+	input?.addEventListener("change", (event) => {
+		const map = (event.target as HTMLInputElement).value.toLowerCase();
+		const url = new URL(window.location.href);
+		const path = url.pathname.split("/");
+		const currentAgent = path[2];
 
-            if (map === "") {
-                navigate(`/agents/${currentAgent}`);
-            } else {
-                navigate(`/agents/${currentAgent}/${map}`);
-            }
-        });
+		if (map === "") {
+			navigate(`/agents/${currentAgent}`);
+		} else {
+			navigate(`/agents/${currentAgent}/${map}`);
+		}
+	});
 
-    document
-        .querySelector("input[list='maps']")!
-        .addEventListener("keydown", (event) => {
-            if ((event as KeyboardEvent).key !== "Tab") return;
-            const map = (event.target as HTMLSelectElement).value.toLowerCase();
+	input?.addEventListener("keydown", (event) => {
+		if ((event as KeyboardEvent).key !== "Tab") return;
+		const map = (input as HTMLInputElement).value.toLowerCase();
 
-            if (map === "") return;
-            const closestMap = mapList.find((mapItem) =>
-                mapItem.startsWith(map),
-            );
+		if (map === "") return;
+		const closestMap = mapList.find((mapItem) => mapItem.startsWith(map));
 
-            if (!closestMap) return;
+		if (!closestMap) return;
 
-            (event.target as HTMLSelectElement).value = closestMap;
-        });
+		(input as HTMLInputElement).value =
+			closestMap[0]!.toUpperCase() + closestMap.slice(1);
+	});
 </script>
